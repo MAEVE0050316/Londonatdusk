@@ -1,0 +1,156 @@
+:root{
+  --sidebar: 420px; /* 左侧栏宽度 */
+}
+
+/* Base */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0e1020;
+  color: #eaeaff;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+               "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 18px;
+  line-height: 1.6;
+  height: 100%;
+}
+
+.app{ min-height: 100dvh; }
+
+/* 左侧：两栏网格 + 分区标题 */
+#ui{
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--sidebar);
+  overflow: auto;
+  padding: 18px 16px;
+  background: rgba(20,22,42,.92);
+  backdrop-filter: saturate(1.2) blur(6px);
+  border-right: 1px solid rgba(255,255,255,.08);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel-title{
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  color: #cfd0ff;
+  margin-bottom: 2px;
+}
+
+.stack{ display: grid; gap: 10px; }
+.stack > h3{
+  margin: 4px 2px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #cfd0ff;
+  opacity: .9;
+  letter-spacing: .2px;
+}
+
+.grid2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.span2{ grid-column: 1 / span 2; }
+
+/* 控件卡片 */
+.group{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #14162a;
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 10px 12px;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.group label{
+  color: #a8a8d8;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.group input[type="range"]{
+  accent-color: #8c7cff;
+  width: 170px;
+}
+
+.group output{
+  min-width: 44px;
+  text-align: right;
+  color: #cfd0ff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* 颜色组 */
+.group.colors{ gap: 14px; }
+.group.colors .label{
+  color:#cfd0ff; font-weight:800; margin-right:6px; font-size:16px;
+}
+.group.colors input[type="color"]{
+  width: 36px; height: 28px; padding: 0; border: none; background: transparent; cursor: pointer;
+}
+
+/* 右侧画布区 */
+#stage{
+  margin-left: var(--sidebar);
+  min-height: 100dvh;
+  display: grid;
+  place-items: start center;
+  padding: 24px;
+}
+
+canvas{
+  display: block;
+  margin: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  border-radius: 14px;
+  max-width: calc(100vw - var(--sidebar) - 48px);
+  height: auto !important;
+}
+
+/* 画布下方工具条（保存 & 随机） */
+.toolbar{
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  width: 100%;
+  justify-content: flex-end; /* 右下角对齐 */
+}
+
+button{
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.2);
+  background:#181a2e;
+  color:#eaeaff;
+  padding: 10px 14px;
+  cursor:pointer;
+  transition: filter .2s ease, transform .08s ease;
+}
+button:hover{ filter: brightness(1.15); transform: translateY(-1px); }
+
+/* 小屏回退：单栏 + 顶部面板 */
+@media (max-width: 980px){
+  :root{ --sidebar: 100vw; }
+  #ui{
+    position: sticky;
+    width: 100%;
+    inset: 0 0 auto 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .grid2{ grid-template-columns: 1fr; }
+  #stage{ margin-left: 0; }
+  .toolbar{ justify-content: center; }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    <title>London at dusk — GUI</title>
+  </head>
+  <body>
+    <div class="app">
+      <!-- 左侧两栏参数面板 -->
+      <aside id="ui">
+        <div class="panel-title">London at dusk — Controls</div>
+
+        <!-- Skyline（原 purple） -->
+        <section class="stack">
+          <h3>Skyline</h3>
+          <div class="grid2">
+            <div class="group" title="How many silhouettes rise on the horizon.">
+              <label for="purpleCount">Amount</label>
+              <input id="purpleCount" type="range" min="0" max="60" value="28">
+              <output id="purpleCountOut">28</output>
+            </div>
+            <div class="group" title="Stronger lines feel nearer and bolder.">
+              <label for="purpleW">Silhouette</label>
+              <input id="purpleW" type="range" min="1" max="16" value="4">
+              <output id="purpleWOut">4</output>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lights（原 dots） -->
+        <section class="stack">
+          <h3>Lights</h3>
+          <div class="grid2">
+            <div class="group" title="How many lights flicker on across the city.">
+              <label for="dotCount">Amount</label>
+              <input id="dotCount" type="range" min="0" max="80" value="12">
+              <output id="dotCountOut">12</output>
+            </div>
+            <div class="group" title="How bright each light glows.">
+              <label for="dotSize">Glow</label>
+              <input id="dotSize" type="range" min="4" max="40" value="10">
+              <output id="dotSizeOut">10</output>
+            </div>
+            <div class="group" title="Slide the lights left ↔ right.">
+              <label for="dotCX">Drift</label>
+              <input id="dotCX" type="range" min="0" max="100" value="50">
+              <output id="dotCXOut">50</output>
+            </div>
+            <div class="group" title="Lift the lights lower ↔ higher.">
+              <label for="dotCY">Lift</label>
+              <input id="dotCY" type="range" min="0" max="60" value="30">
+              <output id="dotCYOut">30</output>
+            </div>
+            <div class="group span2" title="How widely the lights scatter.">
+              <label for="dotSpread">Scatter</label>
+              <input id="dotSpread" type="range" min="5" max="200" value="80">
+              <output id="dotSpreadOut">80</output>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sun / Horizon -->
+        <section class="stack">
+          <h3>Sun & Horizon</h3>
+          <div class="grid2">
+            <div class="group" title="The size of the sun sinking into the scene.">
+              <label for="bigCircle">Sun Size</label>
+              <input id="bigCircle" type="range" min="60" max="260" value="120">
+              <output id="bigCircleOut">120</output>
+            </div>
+            <div class="group" title="Raise or lower the horizon.">
+              <label for="yellowY">Horizon</label>
+              <input id="yellowY" type="range" min="30" max="80" value="60">
+              <output id="yellowYOut">60</output>
+            </div>
+          </div>
+        </section>
+
+        <!-- Colors -->
+        <section class="stack">
+          <h3>Colors</h3>
+          <div class="group colors span2" title="Tune the sky and the world below the horizon.">
+            <span class="label">Sky Colors</span>
+            <label>Sky A <input id="c1" type="color" value="#003cc1"></label>
+            <label>Sky B <input id="c2" type="color" value="#c694ff"></label>
+            <span class="label">Below-Horizon Colors</span>
+            <label>Below A <input id="d1" type="color" value="#567dde"></label>
+            <label>Below B <input id="d2" type="color" value="#ff8f3f"></label>
+          </div>
+        </section>
+      </aside>
+
+      <!-- 右侧画布 + 下方工具条 -->
+      <main id="stage">
+        <!-- p5 canvas 会被挂载到这里 -->
+        <div class="toolbar">
+          <button id="randomize" title="Surprise me with a new dusk.">Randomize</button>
+          <button id="saveBtn" title="Save your dusk as an image.">Save image</button>
+        </div>
+      </main>
+    </div>
+
+    <script src="sketch.js"></script>
+  </body>
+</html>
