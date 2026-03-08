@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-    <title>London at dusk — GUI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>伦敦黄昏 · 参数控制</title>
+
+    <style>
+      html, body {
+        font-family: "Noto Sans SC", "Source Han Sans SC", "PingFang SC",
+                     "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      }
+    </style>
   </head>
   <body>
     <div class="app">
       <aside id="ui">
-        <div class="panel-title">London at dusk — Controls</div>
+        <div class="panel-title">伦敦黄昏 · 参数控制</div>
         <div class="mode-note" id="modeNote">
-          Edit mode — adjust your preferred dusk, then press Play Animation.
+          编辑模式：先调整你想要的黄昏画面，再点击“播放动画”。
         </div>
 
         <section class="stack">
-          <h3>Skyline</h3>
+          <h3>天际线</h3>
           <div class="grid2">
             <div class="group">
-              <label for="purpleCount">Amount</label>
+              <label for="purpleCount">数量</label>
               <input id="purpleCount" type="range" min="0" max="60" value="28">
               <output id="purpleCountOut">28</output>
             </div>
             <div class="group">
-              <label for="purpleW">Silhouette</label>
+              <label for="purpleW">线条粗细</label>
               <input id="purpleW" type="range" min="1" max="16" value="4">
               <output id="purpleWOut">4</output>
             </div>
@@ -31,30 +39,30 @@
         </section>
 
         <section class="stack">
-          <h3>Lights</h3>
+          <h3>灯光</h3>
           <div class="grid2">
             <div class="group">
-              <label for="dotCount">Amount</label>
+              <label for="dotCount">数量</label>
               <input id="dotCount" type="range" min="0" max="80" value="12">
               <output id="dotCountOut">12</output>
             </div>
             <div class="group">
-              <label for="dotSize">Glow</label>
+              <label for="dotSize">光点大小</label>
               <input id="dotSize" type="range" min="4" max="40" value="10">
               <output id="dotSizeOut">10</output>
             </div>
             <div class="group">
-              <label for="dotCX">Drift</label>
+              <label for="dotCX">左右位置</label>
               <input id="dotCX" type="range" min="0" max="100" value="50">
               <output id="dotCXOut">50</output>
             </div>
             <div class="group">
-              <label for="dotCY">Lift</label>
+              <label for="dotCY">上下位置</label>
               <input id="dotCY" type="range" min="0" max="60" value="30">
               <output id="dotCYOut">30</output>
             </div>
             <div class="group span2">
-              <label for="dotSpread">Scatter</label>
+              <label for="dotSpread">分布范围</label>
               <input id="dotSpread" type="range" min="5" max="200" value="80">
               <output id="dotSpreadOut">80</output>
             </div>
@@ -62,15 +70,15 @@
         </section>
 
         <section class="stack">
-          <h3>Sun & Horizon</h3>
+          <h3>太阳与地平线</h3>
           <div class="grid2">
             <div class="group">
-              <label for="bigCircle">Sun Size</label>
+              <label for="bigCircle">太阳大小</label>
               <input id="bigCircle" type="range" min="60" max="260" value="120">
               <output id="bigCircleOut">120</output>
             </div>
             <div class="group">
-              <label for="yellowY">Horizon</label>
+              <label for="yellowY">地平线高度</label>
               <input id="yellowY" type="range" min="30" max="80" value="60">
               <output id="yellowYOut">60</output>
             </div>
@@ -78,32 +86,33 @@
         </section>
 
         <section class="stack">
-          <h3>Colors</h3>
+          <h3>色彩</h3>
           <div class="group colors span2">
-            <span class="label">Sky Colors</span>
-            <label>Sky A <input id="c1" type="color" value="#003cc1"></label>
-            <label>Sky B <input id="c2" type="color" value="#c694ff"></label>
-            <span class="label">Below-Horizon Colors</span>
-            <label>Below A <input id="d1" type="color" value="#567dde"></label>
-            <label>Below B <input id="d2" type="color" value="#ff8f3f"></label>
+            <span class="label">天空颜色</span>
+            <label>天空色 A <input id="c1" type="color" value="#003cc1"></label>
+            <label>天空色 B <input id="c2" type="color" value="#c694ff"></label>
+
+            <span class="label">地平线下方颜色</span>
+            <label>下方色 A <input id="d1" type="color" value="#567dde"></label>
+            <label>下方色 B <input id="d2" type="color" value="#ff8f3f"></label>
           </div>
         </section>
       </aside>
 
       <main id="stage">
         <div class="toolbar">
-          <button id="playBtn">Play Animation</button>
-          <button id="pauseBtn">Pause</button>
-          <button id="resetBtn">Reset</button>
+          <button id="playBtn">播放动画</button>
+          <button id="pauseBtn">暂停</button>
+          <button id="resetBtn">重置</button>
 
           <div class="toolbar-speed">
-            <label for="speedControl">Speed</label>
+            <label for="speedControl">播放速度</label>
             <input id="speedControl" type="range" min="0.2" max="3.0" step="0.05" value="1.0">
             <span id="speedOut">1.00×</span>
           </div>
 
-          <button id="randomize">Randomize Target</button>
-          <button id="saveBtn">Save image</button>
+          <button id="randomize">生成新变化</button>
+          <button id="saveBtn">保存图片</button>
         </div>
       </main>
     </div>
