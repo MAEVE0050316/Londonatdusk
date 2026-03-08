@@ -154,3 +154,52 @@ button:hover{ filter: brightness(1.15); transform: translateY(-1px); }
   #stage{ margin-left: 0; }
   .toolbar{ justify-content: center; }
 }
+
+.mode-note{
+  font-size: 14px;
+  color: #bfc3ff;
+  line-height: 1.5;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+.toolbar{
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.toolbar-speed{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background:#14162a;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.toolbar-speed label{
+  color:#cfd0ff;
+  font-size:14px;
+  font-weight:700;
+}
+
+.toolbar-speed input[type="range"]{
+  width: 120px;
+  accent-color: #8c7cff;
+}
+
+.toolbar-speed span{
+  min-width: 52px;
+  text-align: right;
+  color:#eaeaff;
+  font-size:14px;
+  font-weight:700;
+}
