@@ -128,7 +128,7 @@ function draw() {
 
 const skylineBase = lerpColor(
   lerpColor(c2, color('#9b5cff'), 0.45),
-  lerpColor(d1, color('#596a8a'), 0.45),
+  lerpColor(d1, color('#9500ffff'), 0.45),
   dayNightBlend
 );
 
@@ -136,7 +136,7 @@ const skylineColor = lerpColor(skylineBase, color('#ff4fa3'), warmGlow * 0.25);
 
 const skylineDashBase = lerpColor(
   lerpColor(color('#ff6bd6'), c2, 0.35),
-  lerpColor(d1, color('#7a86a8'), 0.4),
+  lerpColor(d1, color('#4d3aacff'), 0.4),
   dayNightBlend
 );
 
@@ -169,8 +169,30 @@ const dotRedB = color('#ff0026ff');
 const dotColorA = lerpColor(dotBaseA, dotRedA, warmGlow * 0.5);
 const dotColorB = lerpColor(dotBaseB, dotRedB, warmGlow * 0.45);
 
-  const horizonColor = lerpColor(color('#ffe66d'), c2, 0.18);
-  const shorelineColor = lerpColor(color('#ffd84d'), d2, 0.12);
+const horizonColor = lerpColor(color('#ffe66d'), c2, 0.18);
+
+// 黄色短线 / 水面灯光：从金黄 → 炫烂橙红 → 夜晚沉静
+const shoreBase = lerpColor(
+  color('#ffd84d'),
+  color('#ffb347'),
+  0.35
+);
+
+const shoreHot = lerpColor(
+  color('#ff7a3d'),
+  color('#ff4d4d'),
+  0.45
+);
+
+const shoreNight = lerpColor(
+  color('#fff200ff'),
+  color('#ffea00ff'),
+  0.45
+);
+
+// 先根据背景暖色强度变热，再根据昼夜偏向沉静
+let shorelineColor = lerpColor(shoreBase, shoreHot, warmGlow * 0.5);
+shorelineColor = lerpColor(shorelineColor, shoreNight, dayNightBlend * 0.4);
 
   if (mode === MODE_PLAYING) {
     angle += 0.0012 * speedFactor;
@@ -301,11 +323,11 @@ function setMode(nextMode) {
   mode = nextMode;
 
   if (mode === MODE_EDIT) {
-    ui.modeNote.html('Edit mode — adjust your preferred dusk, then press Play Animation.');
+    ui.modeNote.html('编辑模式：先调整你想要的黄昏画面，再点击“播放动画”。');
   } else if (mode === MODE_PLAYING) {
-    ui.modeNote.html('Playing — animation is running from your current composition. Adjust speed below.');
+    ui.modeNote.html('播放中：动画正在从当前构图开始变化，可随时调整播放速度。');
   } else if (mode === MODE_PAUSED) {
-    ui.modeNote.html('Paused — current frame is frozen. Press Play Animation to continue.');
+    ui.modeNote.html('已暂停：当前画面已冻结，点击“播放动画”继续。');
   }
 }
 
@@ -470,8 +492,8 @@ function rebuildShorelines() {
   for (let i = 0; i < 20; i++) {
     let sx = random(width / 3);
     let sy = random(height / 5, height / 2);
-    let ex = sx + random(10, 22);
-    let ey = sy + random(-3, 3);
+    let ex = sx + random(16, 36);
+    let ey = sy + random(-2, 2);
     shorelines.push({ start: createVector(sx, sy), end: createVector(ex, ey) });
   }
 }
@@ -693,9 +715,29 @@ function drawVerticalDashLine(x, startdlY, enddlY, lineLength, gap) {
 }
 
 function drawShorelines(col) {
-  stroke(col);
-  strokeWeight(4);
-  for (let L of shorelines) {
+  for (let i = 0; i < shorelines.length; i++) {
+    const L = shorelines[i];
+
+    // 只有播放时才有动态，编辑和暂停时保持静态
+    const activeTime = (mode === MODE_PLAYING) ? frameCount * speedFactor : 0;
+
+    // 每条线轻微明暗变化，模拟水面反射 / 远处灯带
+    const flicker = 0.78 + 0.22 * sin(activeTime * 0.02 + i * 0.8);
+
+    const r = red(col) * flicker;
+    const g = green(col) * flicker;
+    const b = blue(col) * flicker;
+
+    // 轻微粗细呼吸
+    const w = 3.6 + sin(activeTime * 0.015 + i * 0.6) * 0.45;
+
+    stroke(r, g, b, 230);
+    strokeWeight(w);
+    line(L.start.x, L.start.y, L.end.x, L.end.y);
+
+    // 柔和外发光层
+    stroke(r, g, b, 40);
+    strokeWeight(w + 2.2);
     line(L.start.x, L.start.y, L.end.x, L.end.y);
   }
 }
