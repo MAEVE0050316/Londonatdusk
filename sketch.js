@@ -24,7 +24,7 @@ let mode = MODE_EDIT;
 
 // ----- speed -----
 let speedFactor = 1.0;
-let baseTransitionSpeed = 0.0012;
+let baseTransitionSpeed = 0.005;
 
 // ----- animation state -----
 let currentState = {};
@@ -145,11 +145,11 @@ const skylineDashColor = lerpColor(skylineDashBase, color('#ff6b8a'), warmGlow *
 
 const sunBase = lerpColor(
   lerpColor(c2, color('#ff8c42'), 0.45),
-  lerpColor(color('#ff5e62'), color('#ffcf70'), 0.5),
+  lerpColor(color('#ff0004ff'), color('#ffcf70'), 0.5),
   dayNightBlend
 );
 
-const sunRedPeak = lerpColor(color('#ff4d4d'), color('#ff2f5b'), 0.5);
+const sunRedPeak = lerpColor(color('#ff0000ff'), color('#ff0037ff'), 0.5);
 
 const sunFill = lerpColor(sunBase, sunRedPeak, warmGlow * 0.45);
 
@@ -164,7 +164,7 @@ const dotBaseA = lerpColor(c2, color('#ffd36a'), 0.55);
 const dotBaseB = lerpColor(d2, color('#ff7f50'), 0.40);
 
 const dotRedA = color('#ff5a5a');
-const dotRedB = color('#ff2f4f');
+const dotRedB = color('#ff0026ff');
 
 const dotColorA = lerpColor(dotBaseA, dotRedA, warmGlow * 0.5);
 const dotColorB = lerpColor(dotBaseB, dotRedB, warmGlow * 0.45);
@@ -375,7 +375,7 @@ function generateRandomState() {
     purpleCount: int(random(14, 38)),
     purpleW: random(2.4, 6.5),
 
-    dotCount: int(random(12, 42)),
+    dotCount: int(random(12, 100)),
     dotSize: random(7, 14),
     dotCX: int(random(28, 72)),
     dotCY: int(random(18, 42)),
